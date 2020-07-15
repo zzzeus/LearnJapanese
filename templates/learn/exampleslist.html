@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+
+</style>
+{% endblock %}
+{% block content %}
+{% if num %}
+<div class="list-group">
+    {% for i in num %}
+    <a href="{{i}}" class="list-group-item list-group-item-action">{{i}}</a>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

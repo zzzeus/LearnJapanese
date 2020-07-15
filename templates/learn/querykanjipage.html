@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+.chn{
+    font-size: 1.5rem;
+    color:#6c757d;
+    margin-left: 10px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container ">
+    <div class="row ">
+        <div class="col">
+                <h1>汉字</h1>
+                <input type="text" class="form-control" id="wordInput" aria-describedby="emailHelp" placeholder="Enter">
+                <button id="btn-search" type="button" class="btn btn-primary btn-lg btn-block">Search Kanji</button>
+                <div id="wordcontainer"></div>
+        </div>
+    
+        <div class="col col-lg-2">
+            <p>history list</p>
+                <div class="list-group" id='historylist'>
+
+
+
+                </div>
+            </div>
+    </div>
+</div>
+    <script>
+        historywords=[]
+        var wordbefore=''
+        function unique1(hash){
+            un1=false
+
+     if(historywords.indexOf(hash)==-1){
+      un1= true
+     
+  }
+  return un1;
+}
+    $(document).ready(function(){
+        var getdict1=function(word){
+           word1=$('#wordInput').val()
+            if(word==word1){
+                console.log('alreadly geted')
+                return;
+            }
+            // console.log(this)
+            $('#wordInput').text(word)
+            $.get("/html/kanji/word/"+word,
+            function(data,status){
+                $('#wordcontainer').html(data['data'])
+            }); 
+        }
+        var getdict=function(){
+           word=$('#wordInput').val()
+            if(wordbefore==word){
+                console.log('alreadly geted')
+                return;
+            }
+            
+            wordbefore=word
+            if(unique1(word)){
+                historywords.push(word)
+                $('#historylist').append('<button type="button" class="list-group-item list-group-item-action historybt">'+word+'</button>')
+                $('.historybt').click(function(){
+                getdict1($(this).text())
+                // console.log($(this))
+                    })
+            }
+            
+            $.get("/html/kanji/word/"+word,
+            function(data,status){
+                $('#wordcontainer').html(data['data'])
+            }); 
+        }
+        
+        $('#btn-search').click(function(){
+            getdict()
+        })
+        $('#wordInput').keydown(function(key){
+            // console.log()
+            if(key.which==13)
+            getdict()
+        })
+    })
+    </script>
+{% endblock %}

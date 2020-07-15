@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+.jpn{
+    display: none;
+}
+    .chn{
+        font-size: 1.5rem;
+        color:#6c757d;
+        margin-left: 10px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+<h3><a href='/learn/examples/list'>{{ title }}</a><span class="badge badge-light"><a href="/learn/newexamples">New</a></span></h3>
+{% autoescape false %}
+<ul class="list-group">
+{% for i in examplelist %}
+<li class="list-group-item">
+<div>
+<h5  ><span data-toggle="tooltip" data-html="true" data-placement="right" title="{{ i[1][2] }}" >{{ i[0] }}.  {{ i[1][0] }}</span></h5>
+{{ i[1][1] }}
+</div></li>
+{% endfor %}
+</ul>
+{% endautoescape %}
+<script>
+$('[data-toggle="popover"]').popover()
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+$(function(){
+    $('li').mouseenter(function(){
+        $(this).find('.jpn').fadeIn()
+    })
+    $('li').mouseleave(function(){
+        $(this).find('.jpn').fadeOut()
+    })
+})
+</script>
+{% endblock %}

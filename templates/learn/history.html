@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+
+</style>
+{% endblock %}
+{% block content %}
+<p>Search history</p>
+<ul class="list-group">
+    {% for i in history %}
+    <li class="list-group-item"><a href="{{ i['path'] }}">{{i['name']}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

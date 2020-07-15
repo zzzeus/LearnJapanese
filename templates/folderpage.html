@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+
+</style>
+{% endblock %}
+{% block content %}
+<p>Folders</p>
+<ul class="list-group">
+{% for i in folders %}
+
+    <li class="list-group-item"><a href="{{ i['path'] }}">{{i['name']}}</a></li>
+
+  
+{% endfor %}
+</ul>
+<p>Videos</p>
+<ul class="list-group">
+{% for i in videos %}
+<li class="list-group-item"><a href="{{ i['path'] }}">{{i['name']}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

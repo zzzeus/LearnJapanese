@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+.chn{
+    font-size: 1.5rem;
+    color:#6c757d;
+    margin-left: 10px;
+}
+</style>
+{% endblock %}
+{% block content %}
+    <h1>Dict</h1>
+    <input type="text" class="form-control" id="wordInput" aria-describedby="emailHelp" placeholder="Enter">
+    <button id="btn-search" type="button" class="btn btn-primary btn-lg btn-block">Search</button>
+    <div id="wordcontainer">
+            {% if words %}
+        <div class="accordion" id="accordionExample">
+            {% if word %}
+            <p>The word is {{word}},and the number is {{ num }} </p>
+            {% endif %}
+            {% autoescape false %}
+                {% for item in words %}
+                <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{item}}" aria-expanded="true" aria-controls="collapseOne">
+                              {{ item }}
+                            </button>
+                          </h2>
+                        </div>
+                    
+                        <div id="{{item}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div class="card-body">
+                            {{ words[item] }}
+                          </div>
+                        </div>
+                </div>
+                <!-- <li>{% block loop_item %}{{ item }}{% endblock %}</li> -->
+            {% endfor %}
+            {% endautoescape %}
+            {% endif %}
+        </div>
+        
+    </div>
+    <script>
+
+    $(document).ready(function(){
+        var getdict=function(){
+           word=$('#wordInput').val()
+            window.location.href="/learn/query/"+word
+            // wordbefore=word
+            // $.get("/html/word/"+word,
+            // function(data,status){
+            //     $('#wordcontainer').html(data['data'])
+            // }); 
+        }
+        
+        $('#btn-search').click(function(){
+            getdict()
+        })
+        $('#wordInput').keydown(function(key){
+            // console.log()
+            if(key.which==13)
+            getdict()
+        })
+    })
+    </script>
+{% endblock %}

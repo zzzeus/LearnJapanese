@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+
+</style>
+{% endblock %}
+{% block content %}
+<div>
+{% for item in pages %}
+<p><a href="{{pages[item]}}">{{item}}</a></p>
+
+{% endfor %}
+</div>
+{% endblock %}

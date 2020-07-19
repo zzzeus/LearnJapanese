@@ -2,6 +2,8 @@
 
 This is a web application which you can query about the meaning of Japanese words. This is a good tool. 
 
+![sample](sample.jpg)
+
 ## Technical details
 
 ### Running locally
@@ -13,7 +15,7 @@ Install dependencies with
 pip install Flask
 pip install beautifulsoup4
 
-python3 run.py
+py3 run.py
 ```
 
 ## Third party libraries

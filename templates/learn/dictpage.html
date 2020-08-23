@@ -30,6 +30,12 @@
     </div>
 </div>
 <script>
+
+
+
+    var currentword = ''
+    var status_searching = false;
+    
     historywords = []
     var wordbefore = ''
     function unique1(hash) {
@@ -41,7 +47,23 @@
         }
         return un1;
     }
+
     $(document).ready(function () {
+        function getWordFromSB(){
+            word1 = $('#wordInput').val();
+            return word1
+        }
+        function askForMeanings(word) {
+            if(status_searching){
+                return
+            }
+            status_searching=true;
+            $.get("/html/word/" + word,
+                function (data, status) {
+                    status_searching=false;
+                    $('#wordcontainer').html(data['data']);
+                });
+        }
         var getdict1 = function (word) {
             word1 = $('#wordInput').val()
             if (word == word1) {
@@ -53,14 +75,23 @@
             $.get("/html/word/" + word,
                 function (data, status) {
                     $('#wordcontainer').html(data['data'])
+                    status_searching=false;
                 });
         }
         var getdict = function () {
+            if(status_searching){
+                return
+            }
+            status_searching=true;
+
+            $('#wordcontainer').html('<img src="/static/imgs/loading.gif"></img>')
+
             word = $('#wordInput').val()
             if (wordbefore == word) {
                 console.log('alreadly geted')
                 return;
             }
+            console.log(word,'searching...')
 
             wordbefore = word
             if (unique1(word)) {
@@ -75,10 +106,14 @@
             $.get("/html/word/" + word,
                 function (data, status) {
                     $('#wordcontainer').html(data['data'])
+                    status_searching=false;
                 });
         }
 
         $('#btn-search').click(function () {
+            // let w = getWordFromSB()
+
+            // askForMeanings(w)
             getdict()
         })
         $('#wordInput').keydown(function (key) {

@@ -307,4 +307,4 @@ def getExamplePage1(num):
          return redirect('/learn/newexamples')
     examplelist=json.loads(examples[num-1])
     return render_template('./learn/examples.html',title='Examples %s'%(num),examplelist=examplelist)
-app.run('0.0.0.0',debug=True)
+app.run('127.0.0.1',debug=True)
